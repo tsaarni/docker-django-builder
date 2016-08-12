@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  webdev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-dev
+      args:
+        - uid=$UID
+    image: webdev
+    command: /app/docker/entrypoint-dev.sh
+    user: $UID
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

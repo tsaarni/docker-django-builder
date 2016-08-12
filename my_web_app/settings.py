@@ -1,11 +1,11 @@
 """
-Django settings for {{ project_name }} project.
+Django settings for my_web_app project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/{{ docs_version }}/topics/settings/
+https://docs.djangoproject.com/en/1.10/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
+https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import os
 
@@ -47,7 +47,7 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
-    ROOT_URLCONF = '{{ project_name }}.urls'
+    ROOT_URLCONF = 'my_web_app.urls'
 
     TEMPLATES = [
         {
@@ -65,16 +65,26 @@ class Common(Configuration):
         },
     ]
 
-    WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+    WSGI_APPLICATION = 'my_web_app.wsgi.application'
 
     # Database
-    # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
-    DATABASES = values.DatabaseURLValue(
-        'sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
-    )
+    # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'postgres',
+            'USER': os.environ.get('POSTGRES_USER'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+            'HOST': 'db',
+            'PORT': 5432,
+            'OPTIONS': {
+                'connect_timeout': 5,
+            }
+        }
+    }
 
     # Password validation
-    # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#auth-password-validators
+    # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
     AUTH_PASSWORD_VALIDATORS = [
         {
             'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -91,7 +101,7 @@ class Common(Configuration):
     ]
 
     # Internationalization
-    # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
+    # https://docs.djangoproject.com/en/1.10/topics/i18n/
     LANGUAGE_CODE = 'en-us'
 
     TIME_ZONE = 'UTC'
@@ -103,7 +113,7 @@ class Common(Configuration):
     USE_TZ = True
 
     # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/{{ docs_version }}/howto/static-files/
+    # https://docs.djangoproject.com/en/1.10/howto/static-files/
     STATIC_URL = '/static/'
 
 

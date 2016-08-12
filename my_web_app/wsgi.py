@@ -1,8 +1,8 @@
 """
-WSGI config for {{ project_name }} project.
+WSGI config for my_web_app project.
 It exposes the WSGI callable as a module-level variable named ``application``.
 For more information on this file, see
-https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/wsgi/
+https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 import os
 import dotenv
@@ -24,7 +24,7 @@ elif ENVIRONMENT == 'PRODUCTION':
 else:
     settings = 'development'
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{ project_name }}.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_web_app.settings')
 os.environ.setdefault('DJANGO_CONFIGURATION', settings.title())
 
 from configurations.wsgi import get_wsgi_application
