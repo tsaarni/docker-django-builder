@@ -36,12 +36,11 @@ The current directory will be mounted into django container as /app.
 Django will run source code from there, making it unnecessary to
 re-create the container each time source code is modified.
 
-We'll also mount .cache from the current directory as /cache inside
-the django container.  This directory is used as pip cache and
-virtualenv for installing development dependencies.  Environment
-variable UID is used to pass the user id into the container.
-Processes will be executed with that UID to guarantee correct
-ownership of files stored in mounted host volume.
+We'll also set /app/.cache/ as cache for pip and virtualenv for
+installing development dependencies.  Environment variable UID is used
+to pass the user id into the container.  Processes will be executed
+with that UID to guarantee correct ownership of files stored in
+mounted host volume.
 
 For the contents of the django development environment container, see
 [docker/Dockerfile-dev](docker/Dockerfile-dev).
@@ -81,9 +80,3 @@ Finally the image can be tested:
         --publish 8000:8000 \
         myapp
 
-
-## Acknowledgments
-
-The example Django application used in this tutorial is based on
-[django-project-template](https://jpadilla.github.io/django-project-template/)
-by José Padilla.

@@ -1,9 +1,10 @@
 #!/bin/bash -ex
 
+# prefix dir for installation
 export PYTHONUSERBASE=/install/files/usr
 
 cd /source
-pip install --user --cache-dir=/cache/pip-cache/ -r requirements.txt
+pip install --user --cache-dir=/cache/pip-cache/ -r requirements/production.txt
 
 mkdir -p /install/files/app
 cp -a * /install/files/app

@@ -13,11 +13,11 @@ echo ". $XDG_CACHE_HOME/webdev-env/bin/activate; cd /app" > "$HOME/.bashrc"
 cd /app
 
 # install dependencies
-pip install -r requirements.txt -r requirements/dev.txt
+pip install -r requirements.txt
 
 
 # wait until postgres can be connected, up to 5 seconds
-timeout 5 bash -c "until cat < /dev/null >/dev/tcp/db/5432; do sleep 1; done" 2>/dev/null
+timeout 10 bash -c "until cat < /dev/null >/dev/tcp/db/5432; do sleep 1; done" 2>/dev/null
 
 # run db migrations
 python manage.py migrate

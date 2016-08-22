@@ -2,24 +2,30 @@ version: "2"
 
 services:
 
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-
   webdev:
+    image: webdev
     build:
       context: .
       dockerfile: docker/Dockerfile-dev
       args:
         - uid=$UID
-    image: webdev
     command: /app/docker/entrypoint-dev.sh
     user: $UID
     volumes:
       - .:/app
     ports:
       - "8000:8000"
+    environment:
+      - XDG_CACHE_HOME=/app/.cache # Cache will be used by pip and virtualenv
+      - DATABASE_URL=postgres://django:password@db/mysite
+      - DJANGO_CONFIGURATION=Dev
+      - DJANGO_SECRET_KEY=not-so-secret-key
     depends_on:
       - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mysite

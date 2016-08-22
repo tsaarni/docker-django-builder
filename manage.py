@@ -1,25 +1,11 @@
 #!/usr/bin/env python
+
 import os
 import sys
 
-import dotenv
-
-
-dotenv.read_dotenv()
-
-
 if __name__ == "__main__":
-    ENVIRONMENT = os.getenv('ENVIRONMENT')
-
-    if ENVIRONMENT == 'STAGING':
-        settings = 'staging'
-    elif ENVIRONMENT == 'PRODUCTION':
-        settings = 'production'
-    else:
-        settings = 'development'
-
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_web_app.settings')
-    os.environ.setdefault('DJANGO_CONFIGURATION', settings.title())
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+    os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
 
     from configurations.management import execute_from_command_line
 
